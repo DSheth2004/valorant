@@ -12,21 +12,21 @@ const weaponSkins = [
 ];
 
 const skinImages = {
-  Classic: ["Classic.png", "Classic_glitchpop.png", "Classic_prime.png", "Classic_reverie.png"],
+  Classic: ["Classic.png", "Classic_Glitchpop.png", "Classic_Prime.png", "classic_reverie.png"],
   Shorty: ["Shorty.png", "shorty_Arraxys.png", "shorty_Sentinals_of_light.png", "shorty_Primodium.png"],
   Frenzy: ["Frenzy.png", "Frenzy_Prime.png", "Frenzy_ElderFlame.png", "Frenzy_GlitchPop.png"],
   Ghost: ["Ghost.png", "Ghost_Reaver.png", "Ghost_Gia's_Vengence.png", "Ghost_Ruination.png"],
   Sheriff: ["Sheriff.png", "sheriff_Reaver.png", "sheriff_Ion.png", "sherif_Sentinals_of_Light.png"],
-  Bulldog: ["Bulldog.png", "Bulldog_arraxys.png", "Bulldog_ktac.png"],
-  Guardian: ["Guardian.png", "Guardian_prime.png", "Guardian_soulstrife.png", "Guardian_spitfire.png"],
-  Phantom: ["Phantom.png", "Phantom_reaver.png", "Phantom_sarmad.png", "Phantom_tigris.png"],
-  Vandal: ["Vandal.png", "Vandal_champions.png", "Vandal_sentinels_of_light.png", "Vandal_crimson_beast.png"],
-  Marshal: ["Marshal.png", "Marshal_artisan.png", "Marshal_doodle_buds.png", "Marshal_ruin.png"],
+  Bulldog: ["Bulldog.png", "bulldog_arraxys.png", "bulldog_ktac.png"],
+  Guardian: ["Guardian.png", "guardian_prime.png", "guardian_soulstrife.png", "guardian_spitfire.png"],
+  Phantom: ["Phantom.png", "phantom_reaver.png", "phantom_sarmad.png", "phantom_tigris.png"],
+  Vandal: ["Vandal.png", "vandal_champions.png", "vandal_sentinels_of_light.png", "vandal_crimson_beast.png"],
+  Marshal: ["Marshal.png", "marshal_artisan.png", "marshal_doodle_buds.png", "marshal_ruin.png"],
   Outlaw: ["Outlaw.png", "outlaw_RGX.png", "outlaw_Arraxys.png", "outlaw_EX.O.png"],
-  Operator: ["Operator.png", "Operator_elderflame.png", "Operator_ion.png", "Operator_arraxys.png"],
-  Ares: ["Ares.png", "Ares_hivemind.png", "Ares_nebula.png", "Ares_singularity.png"],
-  Odin: ["Odin.png", "Odin_prime.png", "Odin_reaver.png", "Odin_sentinels_of_light.png"],
-  Knife: ["Knife.png", "Knife_blade_of_chaos.png", "Knife_soulstrife_scythe.png", "Knife_sys_melee.png"],
+  Operator: ["Operator.png", "operator_elderflame.png", "operator_ion.png", "operator_arraxys.png"],
+  Ares: ["Ares.png", "ares_hivemind.png", "ares_nebula.png", "ares_singularity.png"],
+  Odin: ["Odin.png", "odin_prime.png", "odin_reaver.png", "odin_sentinels_of_light.png"],
+  Knife: ["Knife.png", "knife_blade_of_chaos.png", "knife_soulstrife_scythe.png", "knife_sys_melee.png"],
 };
 
 const Arsenal = () => {
