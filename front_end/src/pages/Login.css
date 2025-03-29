@@ -1,0 +1,31 @@
+/* Login.css */
+body {
+    background-color: #121212;
+  }
+
+  .card {
+    background-color: #1b1b1b;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+  }
+
+  .form-label {
+    color: #f0f0f0;
+  }
+
+  .btn-warning {
+    background-color: #f0ad4e;
+    border: none;
+  }
+
+  .text-warning {
+    color: #ffc107 !important;
+  }
+
+  .text-warning:hover {
+    color: #ffd54f !important;
+  }
+
+  .text-center {
+    font-size: 1.2rem;
+  }

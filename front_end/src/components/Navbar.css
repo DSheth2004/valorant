@@ -1,0 +1,43 @@
+/* Navbar Styles */
+.navbar {
+  background-color: #000; /* Black background */
+  padding: 1rem;
+  transition: background-color 0.3s ease;
+}
+.btn-register {
+  background-color: rgb(178, 16, 16);
+  color: white;
+  border: none;
+}
+
+.btn-register:hover {
+  background-color: rgb(97, 10, 10);
+}
+
+/* Navbar Brand */
+.navbar-brand {
+  color: #fff !important; /* White text */
+  font-size: 1.8rem;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+  color: #ff4655 !important; /* Red on hover */
+}
+
+/* Navbar Links */
+.navbar-nav .nav-link {
+  color: #fff !important; /* White text */
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ff4655 !important; /* Red on hover */
+}
+
+/* Button Styles (if needed) */
+.btn {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

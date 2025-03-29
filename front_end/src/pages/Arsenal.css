@@ -1,0 +1,44 @@
+/* Arsenal.css */
+.container {
+    max-width: 1200px; /* Increase container width */
+  }
+
+  .weapon-card {
+    width: 350px;
+    height: 240px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .weapon-img {
+    max-width: 300px;
+    max-height: 160px;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .weapon-img:hover {
+    transform: scale(0.3);
+  }
+
+  .skin-card {
+    width: 200px;  /* Increased width */
+    height: 250px; /* Increased height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .skin-img {
+    max-width: 180px;  /* Increased size */
+    max-height: 180px;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .skin-img:hover {
+    transform: scale(1.4);
+  }
