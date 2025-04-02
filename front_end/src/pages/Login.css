@@ -29,3 +29,58 @@ body {
   .text-center {
     font-size: 1.2rem;
   }
+/* Login.css */
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1b1b1b;
+}
+
+.auth-card {
+  background-color: #2d2d2d;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  width: 350px;
+}
+
+.auth-card h2 {
+  color: #ffc107;
+  text-align: center;
+}
+
+.auth-card label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.auth-card input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: none;
+}
+
+.auth-card button {
+  width: 100%;
+  padding: 10px;
+  background-color: #ffc107;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.auth-card button:hover {
+  background-color: #e0a800;
+}
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+}
