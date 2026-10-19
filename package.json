@@ -1,0 +1,24 @@
+{
+  "name": "valorant-hub",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-stack Valorant fan hub: agents, maps, arsenal and a live store with accounts and a VP wallet.",
+  "type": "module",
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c red,cyan \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w client",
+    "start": "npm start -w server",
+    "test": "npm test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}

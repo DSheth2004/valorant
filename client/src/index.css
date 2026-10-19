@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  --color-brand: #ff4655;
+  --color-brand-dark: #d93a48;
+  --color-ink: #0f1923;
+  --color-cream: #ece8e1;
+
+  /* In-game skin tier colours */
+  --color-tier-select: #5a9fe2;
+  --color-tier-deluxe: #12a594;
+  --color-tier-premium: #d1548d;
+  --color-tier-exclusive: #f5955b;
+  --color-tier-ultra: #f2c94c;
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-scan: scan 2.4s ease-in-out infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes scan {
+    0%, 100% { transform: translateY(-30%); opacity: 0; }
+    50% { transform: translateY(30%); opacity: 1; }
+  }
+}
+
+/* Semantic colours that flip with the theme. */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+}
+
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f1923;
+  --surface: #15212c;
+  --surface-2: #1d2b38;
+  --fg: #ece8e1;
+  --muted: #94a0ab;
+  --line: rgb(236 232 225 / 0.1);
+  --line-strong: rgb(236 232 225 / 0.28);
+  --grid-line: rgb(236 232 225 / 0.035);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #ece8e1;
+  --surface: #f7f5f1;
+  --surface-2: #e1dcd3;
+  --fg: #0f1923;
+  --muted: #56626d;
+  --line: rgb(15 25 35 / 0.12);
+  --line-strong: rgb(15 25 35 / 0.3);
+  --grid-line: rgb(15 25 35 / 0.05);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    min-height: 100dvh;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::selection {
+    background: var(--color-brand);
+    color: white;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 3px;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  img {
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+}
+
+/* Valorant's signature cut corner. */
+@utility clip-corner {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+}
+
+@utility clip-corner-sm {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+}
+
+@utility clip-corner-lg {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+@utility text-stroke {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--line-strong);
+}
+
+/* Tint a white-on-transparent image with currentColor, so icons follow the theme. */
+@utility mask-icon {
+  background-color: currentColor;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Theme toggle: circular reveal via the View Transitions API. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
