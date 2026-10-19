@@ -96,6 +96,34 @@
     cursor: pointer;
   }
 
+  /* Valorant-style system cursors (mouse/trackpad only): arrow by default, crosshair on
+     anything clickable. Native cursors never lag behind the pointer like a JS follower. */
+  @media (pointer: fine) {
+    html {
+      cursor: url("/cursors/arrow.svg") 4 3, auto;
+    }
+
+    a[href],
+    button:not(:disabled),
+    [role="button"]:not([aria-disabled="true"]),
+    label:has(input[type="radio"], input[type="checkbox"]),
+    select,
+    summary {
+      cursor: url("/cursors/crosshair.svg") 16 16, pointer;
+    }
+
+    input:not([type="radio"], [type="checkbox"], [type="button"], [type="submit"]),
+    textarea,
+    [contenteditable="true"] {
+      cursor: text;
+    }
+
+    :disabled,
+    [aria-disabled="true"] {
+      cursor: not-allowed;
+    }
+  }
+
   img {
     user-select: none;
     -webkit-user-drag: none;

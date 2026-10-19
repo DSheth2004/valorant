@@ -42,6 +42,16 @@ export const MAPS = [
     recommendedAgents: ["neon", "raze", "breach", "fade"],
   }),
   map({
+    id: "haven",
+    name: "Haven",
+    location: "Thimphu, Bhutan",
+    sites: ["A", "B", "C"],
+    feature: "Three bomb sites",
+    description:
+      "Beneath a forgotten monastery, a clamour emerges from rival agents clashing to control three sites. Defenders must stretch thin, so fast rotations and strong info are key.",
+    recommendedAgents: ["jett", "omen", "breach", "chamber"],
+  }),
+  map({
     id: "icebox",
     name: "Icebox",
     location: "Bennett Island, Russia",
@@ -62,6 +72,16 @@ export const MAPS = [
     recommendedAgents: ["raze", "omen", "fade", "neon"],
   }),
   map({
+    id: "pearl",
+    name: "Pearl",
+    location: "Lisbon, Portugal",
+    sites: ["A", "B"],
+    feature: "Underwater city",
+    description:
+      "Attackers push down into the defenders on this two-site map set in a vibrant, underwater city. A long mid and no gimmicks make it a pure test of team play.",
+    recommendedAgents: ["fade", "viper", "jett", "chamber"],
+  }),
+  map({
     id: "split",
     name: "Split",
     location: "Tokyo, Japan",
@@ -70,5 +90,15 @@ export const MAPS = [
     description:
       "If you want to go far, you'll have to go up. Ropes connect two sites through a central elevated area, giving controllers strong map control.",
     recommendedAgents: ["raze", "omen", "viper", "reyna"],
+  }),
+  map({
+    id: "sunset",
+    name: "Sunset",
+    location: "Los Angeles, USA",
+    sites: ["A", "B"],
+    feature: "Tight mid fights",
+    description:
+      "Fight under the golden-hour sky of Los Angeles. A compact mid with multiple routes rewards aggressive duelists and well-timed utility.",
+    recommendedAgents: ["raze", "omen", "breach", "gekko"],
   }),
 ];

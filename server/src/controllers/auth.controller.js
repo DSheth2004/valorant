@@ -38,6 +38,8 @@ export function logout(_req, res) {
   res.status(204).end();
 }
 
+/** Session probe: the signed-in user, or `null` for guests. */
 export function me(req, res) {
-  res.json({ user: req.user });
+  res.set("Cache-Control", "no-store");
+  res.json({ user: req.user ?? null });
 }

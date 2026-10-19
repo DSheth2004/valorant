@@ -57,7 +57,14 @@ describe("auth", () => {
     expect(me.body.user.username).toBe("Phoenix");
 
     await agent.post("/api/auth/logout").expect(204);
-    await agent.get("/api/auth/me").expect(401);
+    const afterLogout = await agent.get("/api/auth/me").expect(200);
+    expect(afterLogout.body.user).toBeNull();
+    await agent.get("/api/users/me/collection").expect(401);
+  });
+
+  it("treats guests as a null session rather than an error", async () => {
+    const res = await request(app).get("/api/auth/me").expect(200);
+    expect(res.body).toEqual({ user: null });
   });
 
   it("uses the same error for unknown emails and wrong passwords", async () => {
@@ -76,6 +83,11 @@ describe("auth", () => {
   });
 
   it("rejects requests with a tampered token", async () => {
-    await request(app).get("/api/auth/me").set("Authorization", "Bearer not-a-real-token").expect(401);
+    await request(app)
+      .get("/api/users/me/collection")
+      .set("Authorization", "Bearer not-a-real-token")
+      .expect(401);
+    const probe = await request(app).get("/api/auth/me").set("Authorization", "Bearer not-a-real-token").expect(200);
+    expect(probe.body.user).toBeNull();
   });
 });

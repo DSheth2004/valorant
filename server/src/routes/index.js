@@ -3,7 +3,7 @@ import { rateLimit } from "express-rate-limit";
 import Joi from "joi";
 import { env } from "../config/env.js";
 import { connectDB, getDatabaseState } from "../config/db.js";
-import { requireAuth } from "../middleware/auth.js";
+import { optionalAuth, requireAuth } from "../middleware/auth.js";
 import { validateBody } from "../middleware/validate.js";
 import { loginSchema, registerSchema } from "../validators/auth.schemas.js";
 import * as auth from "../controllers/auth.controller.js";
@@ -63,7 +63,7 @@ router.get("/weapons/:id", cacheStatic, content.getWeapon);
 router.post("/auth/register", authLimiter, validateBody(registerSchema), requireDatabase, auth.register);
 router.post("/auth/login", authLimiter, validateBody(loginSchema), requireDatabase, auth.login);
 router.post("/auth/logout", auth.logout);
-router.get("/auth/me", requireDatabase, requireAuth, auth.me);
+router.get("/auth/me", requireDatabase, optionalAuth, auth.me);
 
 // ---- Store -------------------------------------------------------------------
 router.get("/store", store.getStorefront);

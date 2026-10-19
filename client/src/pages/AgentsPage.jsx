@@ -114,9 +114,9 @@ function AgentExplorer() {
                   style={{ background: `linear-gradient(160deg, ${agent.accent}aa, transparent)` }}
                 >
                   <img
-                    src={agent.portrait}
+                    src={agent.icon}
                     alt=""
-                    className="size-full origin-top scale-125 object-cover object-[50%_10%] transition-transform duration-300 group-hover:scale-[1.4]"
+                    className="size-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />
                   <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink to-transparent px-1 pt-4 pb-1 text-center text-[11px] font-semibold tracking-wider text-cream uppercase">
                     {agent.name}
@@ -151,12 +151,14 @@ function AgentDetail({ agent }) {
         style={{ background: `radial-gradient(circle at 75% 35%, ${agent.accent}, transparent 60%)` }}
         aria-hidden
       />
-      <p
-        className="pointer-events-none absolute -top-4 right-0 -z-10 font-display text-[clamp(6rem,16vw,13rem)] leading-none uppercase text-stroke select-none"
+      <motion.span
         aria-hidden
-      >
-        {agent.name}
-      </p>
+        className="mask-icon pointer-events-none absolute inset-y-0 right-[6%] -z-10 w-[45%] text-fg [mask-position:right_center]"
+        style={{ maskImage: `url(${agent.background})` }}
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 0.08, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      />
 
       <div className="grid md:grid-cols-[1fr_1.1fr]">
         <div className="flex flex-col p-6 sm:p-10">

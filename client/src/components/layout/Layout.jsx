@@ -3,7 +3,7 @@ import { useLocation, useOutlet } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
-import { CustomCursor, ScrollProgress } from "./Effects";
+import { ScrollProgress } from "./Effects";
 import { ErrorBoundary, PageLoader } from "../ui/Feedback";
 
 /**
@@ -28,7 +28,6 @@ export function Layout() {
         Skip to content
       </a>
       <ScrollProgress />
-      <CustomCursor />
       <Navbar />
 
       <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo({ top: 0, behavior: "instant" })}>

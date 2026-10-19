@@ -28,6 +28,24 @@ function readToken(req) {
   return req.cookies?.[AUTH_COOKIE];
 }
 
+/**
+ * Attaches req.user when a valid session is present, but lets guests through.
+ * Used by the session probe so signed-out visitors don't trigger 401s.
+ */
+export async function optionalAuth(req, res, next) {
+  const token = readToken(req);
+  if (token) {
+    try {
+      const { sub } = jwt.verify(token, env.jwtSecret);
+      req.user = await User.findById(sub);
+    } catch {
+      clearSession(res);
+    }
+    if (!req.user) clearSession(res);
+  }
+  next();
+}
+
 /** Rejects the request with 401 unless it carries a valid session for an existing user. */
 export async function requireAuth(req, res, next) {
   const token = readToken(req);

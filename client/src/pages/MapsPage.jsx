@@ -164,9 +164,7 @@ function MapDetail({ map }) {
                   to={`/agents?agent=${agent.id}`}
                   className="group flex items-center gap-2 border border-line py-1 pr-3 pl-1 transition hover:border-brand"
                 >
-                  <span className="size-8 overflow-hidden" style={{ background: agent.accent }}>
-                    <img src={agent.portrait} alt="" className="size-full origin-top scale-150 object-cover object-top" />
-                  </span>
+                  <img src={agent.icon} alt="" className="size-8 object-cover" />
                   <span className="text-sm font-semibold">{agent.name}</span>
                 </Link>
               ))}

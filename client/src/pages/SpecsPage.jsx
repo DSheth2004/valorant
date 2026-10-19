@@ -194,7 +194,7 @@ function OptionGroup({ label, options, value, onChange }) {
           <label
             key={option}
             className={clsx(
-              "flex cursor-pointer items-center border p-3 text-sm transition has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand",
+              "flex items-center border p-3 text-sm transition has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-brand",
               value === index ? "border-brand bg-brand/10 font-semibold" : "border-line hover:border-line-strong",
             )}
           >

@@ -88,7 +88,7 @@ export const WEAPONS = [
     category: "sidearm",
     stats: stats(450, 13, 10, 78, 26, 22, "low"),
     skins: [
-      ["Prime", "premium"],
+      ["Prime//2.0", "premium", "prime"],
       ["Elderflame", "ultra"],
       ["Glitchpop", "exclusive"],
       ["BlastX", "exclusive"],
@@ -104,7 +104,7 @@ export const WEAPONS = [
       ["Gaia's Vengeance", "premium", "gaias-vengeance"],
       ["Ruination", "premium"],
       ["Singularity", "premium"],
-      ["Radiant Entertainment", "exclusive", "radiant-entertainment"],
+      ["Radiant Entertainment System", "exclusive", "radiant-entertainment"],
     ],
   }),
   weapon({
@@ -163,9 +163,9 @@ export const WEAPONS = [
     category: "rifle",
     stats: stats(2900, 25, 9.75, 160, 40, 34, "medium"),
     skins: [
-      ["Champions", "ultra"],
+      ["Champions 2021", "ultra", "champions"],
       ["Sentinels of Light", "exclusive"],
-      ["Crimson Beast", "premium"],
+      ["Crimsonbeast", "premium", "crimson-beast"],
     ],
   }),
   weapon({
@@ -176,7 +176,7 @@ export const WEAPONS = [
     skins: [
       ["Artisan", "premium"],
       ["Doodle Buds", "deluxe"],
-      ["Ruination", "premium"],
+      ["Ruin", "premium", "ruination"],
     ],
   }),
   weapon({
@@ -218,7 +218,7 @@ export const WEAPONS = [
     category: "machine-gun",
     stats: stats(3200, 100, 12, 95, 38, 32, "high"),
     skins: [
-      ["Prime", "premium"],
+      ["Prime//2.0", "premium", "prime"],
       ["Reaver", "premium"],
       ["Sentinels of Light", "exclusive"],
     ],

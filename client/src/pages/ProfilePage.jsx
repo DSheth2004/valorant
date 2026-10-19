@@ -127,11 +127,11 @@ function FavoriteAgents() {
                 to={`/agents?agent=${agent.id}`}
                 className="group flex items-center gap-3 border border-line bg-surface py-2 pr-5 pl-2 transition hover:border-brand"
               >
-                <span className="size-12 overflow-hidden" style={{ background: agent.accent }}>
+                <span className="size-12 overflow-hidden">
                   <img
-                    src={agent.portrait}
+                    src={agent.icon}
                     alt=""
-                    className="size-full origin-top scale-150 object-cover object-top transition-transform group-hover:scale-[1.7]"
+                    className="size-full object-cover transition-transform group-hover:scale-110"
                   />
                 </span>
                 <span>

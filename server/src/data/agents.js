@@ -33,6 +33,8 @@ const agent = ({ id, abilities, ...rest }) => ({
   id,
   ...rest,
   portrait: `/assets/agents/${id}.webp`,
+  icon: `/assets/agents/${id}-icon.webp`,
+  background: `/assets/agents/${id}-bg.webp`,
   abilities: abilities.map(([key, name, description]) => ability(id, key, name, description)),
 });
 

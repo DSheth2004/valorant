@@ -8,4 +8,10 @@ export const PLAYER_CARDS = [
   card("ignition", "Ignition", 650),
   card("vct25-t1", "VCT 25 × T1", 800),
   card("arcane-sisters", "Arcane Sisters", 750),
+  card("kuronami", "Kuronami", 700),
+  card("reaver", "Reaver", 650),
+  card("glitchpop", "Glitchpop", 650),
+  card("elderflame", "Elderflame", 750),
+  card("rgx-11z-pro", "RGX 11z Pro", 700),
+  card("spectrum", "Spectrum", 700),
 ];

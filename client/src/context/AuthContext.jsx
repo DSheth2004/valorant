@@ -14,7 +14,7 @@ export function AuthProvider({ children }) {
       .then(({ user }) => {
         if (cancelled) return;
         setUser(user);
-        setStatus("authenticated");
+        setStatus(user ? "authenticated" : "guest");
       })
       .catch(() => {
         if (!cancelled) setStatus("guest");

@@ -146,7 +146,7 @@ function WeaponCard({ weapon, onOpen }) {
         src={weapon.image}
         alt=""
         loading="lazy"
-        className="relative m-auto max-h-24 w-[85%] object-contain transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3 dark:brightness-125"
+        className="relative m-auto max-h-24 w-[85%] object-contain transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3 invert-[0.85] dark:invert-0"
       />
       <p className="relative flex items-center gap-1.5 font-mono text-[11px] tracking-[0.15em] text-muted uppercase">
         <Layers className="size-3.5" /> {weapon.skins.length} {weapon.skins.length === 1 ? "skin" : "skins"}
@@ -156,6 +156,9 @@ function WeaponCard({ weapon, onOpen }) {
 }
 
 const MAX_DAMAGE = 255;
+
+// The standard weapon renders are light grey, so darken them on the light theme.
+const BASE_RENDER = "invert-[0.85] dark:invert-0";
 
 function WeaponDetail({ weapon }) {
   const { user } = useAuth();
@@ -183,7 +186,7 @@ function WeaponDetail({ weapon }) {
             key={selectedId}
             src={selected?.image ?? weapon.image}
             alt={selected?.name ?? weapon.name}
-            className="relative max-h-56 w-[80%] max-w-2xl object-contain drop-shadow-2xl"
+            className={clsx("relative max-h-56 w-[80%] max-w-2xl object-contain drop-shadow-2xl", !selected && BASE_RENDER)}
             initial={{ opacity: 0, x: 60, rotate: -4 }}
             animate={{ opacity: 1, x: 0, rotate: 0 }}
             exit={{ opacity: 0, x: -60 }}
@@ -274,7 +277,12 @@ function WeaponDetail({ weapon }) {
                     {skin.tier && (
                       <span className="absolute inset-x-0 top-0 h-0.5" style={{ background: `var(--color-tier-${skin.tier})` }} />
                     )}
-                    <img src={skin.image} alt="" loading="lazy" className="mx-auto max-h-12 w-[85%] object-contain" />
+                    <img
+                      src={skin.image}
+                      alt=""
+                      loading="lazy"
+                      className={clsx("mx-auto max-h-12 w-[85%] object-contain", !skin.tier && BASE_RENDER)}
+                    />
                     <span className="flex items-center justify-between gap-1 text-[11px] font-semibold">
                       <span className="truncate">{skin.collection ?? skin.name}</span>
                       {owned.has(skin.id) && <Check className="size-3.5 shrink-0 text-emerald-500" aria-label="Owned" />}

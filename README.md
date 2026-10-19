@@ -83,7 +83,7 @@ All routes are prefixed with `/api`. 🔒 means a session cookie is required.
 | POST | `/auth/register` | Create an account (starts with 5,000 VP) |
 | POST | `/auth/login` | Sign in |
 | POST | `/auth/logout` | Sign out |
-| GET | `/auth/me` 🔒 | Current user |
+| GET | `/auth/me` | Session probe: the current user, or `null` for guests |
 | GET | `/store` | Today's offers and the refresh time |
 | POST | `/store/purchases` 🔒 | Buy an item: `{ "itemId": "vandal-champions" }` |
 | GET | `/users/me/collection` 🔒 | Owned items with purchase details |
@@ -150,7 +150,7 @@ vercel --prod
 
 ## Disclaimer
 
-Valorant Hub is a fan project for learning and portfolio purposes. It isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc. Game assets belong to Riot Games.
+Valorant Hub is a fan project for learning and portfolio purposes. It isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc. Game assets belong to Riot Games; renders were sourced via the community [valorant-api.com](https://valorant-api.com) and are stored locally as optimised WebP.
 
 ## Author
 
