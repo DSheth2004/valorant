@@ -1,3 +1,6 @@
+import { assetUrl } from "./assets.js";
+import { SKIN_MEDIA } from "./skinMedia.js";
+
 export const WEAPON_CATEGORIES = [
   { id: "sidearm", name: "Sidearms" },
   { id: "smg", name: "SMGs" },
@@ -28,7 +31,7 @@ const weapon = ({ id, name, category, stats, skins = [] }) => ({
   name,
   category,
   stats,
-  image: `/assets/weapons/${id}.webp`,
+  image: assetUrl(`weapons/${id}.webp`),
   skins: skins.map(([skinName, tier, slug = slugify(skinName)]) => {
     const skinId = `${id}-${slug}`;
     const basePrice = SKIN_TIERS[tier].price;
@@ -39,7 +42,9 @@ const weapon = ({ id, name, category, stats, skins = [] }) => ({
       collection: skinName,
       tier,
       price: category === "melee" ? basePrice * 2 : basePrice,
-      image: `/assets/skins/${skinId}.webp`,
+      image: assetUrl(`skins/${skinId}.webp`),
+      // In-game showcase per upgrade level (VFX, animations, finisher…)
+      videos: SKIN_MEDIA[skinId] ?? [],
     };
   }),
 });
@@ -60,13 +65,10 @@ export const WEAPONS = [
     category: "sidearm",
     stats: stats(0, 12, 6.75, 78, 26, 22, "low"),
     skins: [
-      ["Glitchpop", "exclusive"],
       ["Prime", "premium"],
-      ["Reverie", "premium"],
-      ["Spectrum", "exclusive"],
-      ["Forsaken", "premium"],
-      ["Nocturnum", "premium"],
-      ["RGX 11z Pro", "exclusive", "rgx"],
+      ["Glitchpop", "exclusive"],
+      ["RGX 11z Pro", "exclusive"],
+      ["Blackthorn", "exclusive"],
     ],
   }),
   weapon({
@@ -75,11 +77,10 @@ export const WEAPONS = [
     category: "sidearm",
     stats: stats(300, 2, 3.33, 36, 12, 10, "low"),
     skins: [
-      ["Araxys", "ultra"],
-      ["Sentinels of Light", "exclusive"],
-      ["Primordium", "premium"],
+      ["Prelude to Chaos", "exclusive"],
       ["Oni", "premium"],
-      ["Prelude to Chaos", "ultra"],
+      ["Sentinels of Light", "exclusive"],
+      ["Araxys", "exclusive"],
     ],
   }),
   weapon({
@@ -88,9 +89,9 @@ export const WEAPONS = [
     category: "sidearm",
     stats: stats(450, 13, 10, 78, 26, 22, "low"),
     skins: [
-      ["Prime//2.0", "premium", "prime"],
       ["Elderflame", "ultra"],
       ["Glitchpop", "exclusive"],
+      ["Prime//2.0", "premium"],
       ["BlastX", "exclusive"],
     ],
   }),
@@ -101,10 +102,9 @@ export const WEAPONS = [
     stats: stats(500, 15, 6.75, 105, 30, 25, "medium"),
     skins: [
       ["Reaver", "premium"],
-      ["Gaia's Vengeance", "premium", "gaias-vengeance"],
-      ["Ruination", "premium"],
-      ["Singularity", "premium"],
-      ["Radiant Entertainment System", "exclusive", "radiant-entertainment"],
+      ["Singularity", "exclusive"],
+      ["Kuronami", "exclusive"],
+      ["Ayakashi", "exclusive"],
     ],
   }),
   weapon({
@@ -115,24 +115,68 @@ export const WEAPONS = [
     skins: [
       ["Reaver", "premium"],
       ["Ion", "premium"],
-      ["Sentinels of Light", "exclusive"],
-      ["Araxys", "ultra"],
-      ["Neo Frontier", "premium"],
-      ["Kuronami", "exclusive"],
+      ["Protocol 781-A", "ultra"],
+      ["Arcane", "exclusive"],
     ],
   }),
-  weapon({ id: "stinger", name: "Stinger", category: "smg", stats: stats(1100, 20, 16, 67, 27, 22, "low") }),
-  weapon({ id: "spectre", name: "Spectre", category: "smg", stats: stats(1600, 30, 13.33, 78, 26, 22, "medium") }),
-  weapon({ id: "bucky", name: "Bucky", category: "shotgun", stats: stats(850, 5, 1.1, 44, 22, 19, "low") }),
-  weapon({ id: "judge", name: "Judge", category: "shotgun", stats: stats(1850, 7, 3.5, 34, 17, 14, "medium") }),
+  weapon({
+    id: "stinger",
+    name: "Stinger",
+    category: "smg",
+    stats: stats(1100, 20, 16, 67, 27, 22, "low"),
+    skins: [
+      ["Prelude to Chaos", "exclusive"],
+      ["Sovereign", "premium"],
+      ["Overdrive", "exclusive"],
+      ["CYRAX", "exclusive"],
+    ],
+  }),
+  weapon({
+    id: "spectre",
+    name: "Spectre",
+    category: "smg",
+    stats: stats(1600, 30, 13.33, 78, 26, 22, "medium"),
+    skins: [
+      ["Prime", "premium"],
+      ["Singularity", "exclusive"],
+      ["Protocol 781-A", "ultra"],
+      ["Blackspyre", "exclusive"],
+    ],
+  }),
+  weapon({
+    id: "bucky",
+    name: "Bucky",
+    category: "shotgun",
+    stats: stats(850, 5, 1.1, 44, 22, 19, "low"),
+    skins: [
+      ["Oni", "premium"],
+      ["Ion", "premium"],
+      ["Overdrive", "exclusive"],
+      ["Rogue", "exclusive"],
+    ],
+  }),
+  weapon({
+    id: "judge",
+    name: "Judge",
+    category: "shotgun",
+    stats: stats(1850, 7, 3.5, 34, 17, 14, "medium"),
+    skins: [
+      ["Elderflame", "ultra"],
+      ["Glitchpop", "exclusive"],
+      ["Sovereign", "premium"],
+      ["Mystbloom", "exclusive"],
+    ],
+  }),
   weapon({
     id: "bulldog",
     name: "Bulldog",
     category: "rifle",
     stats: stats(2050, 24, 10, 116, 35, 29, "medium"),
     skins: [
-      ["Araxys", "ultra"],
-      ["K/TAC", "premium", "ktac"],
+      ["Glitchpop", "exclusive"],
+      ["Prelude to Chaos", "exclusive"],
+      ["Radiant Entertainment System", "ultra"],
+      ["Protocol 781-A", "ultra"],
     ],
   }),
   weapon({
@@ -142,8 +186,9 @@ export const WEAPONS = [
     stats: stats(2250, 12, 5.25, 195, 65, 49, "high"),
     skins: [
       ["Prime", "premium"],
-      ["Soulstrife", "exclusive"],
-      ["Spitfire", "deluxe"],
+      ["Reaver", "premium"],
+      ["Sovereign", "premium"],
+      ["CYRAX", "exclusive"],
     ],
   }),
   weapon({
@@ -152,9 +197,10 @@ export const WEAPONS = [
     category: "rifle",
     stats: stats(2900, 30, 11, 156, 39, 33, "medium"),
     skins: [
+      ["Oni", "premium"],
       ["Reaver", "premium"],
-      ["Sarmad", "premium"],
-      ["Tigris", "premium"],
+      ["Glitchpop", "exclusive"],
+      ["Champions 2026", "exclusive"],
     ],
   }),
   weapon({
@@ -163,9 +209,10 @@ export const WEAPONS = [
     category: "rifle",
     stats: stats(2900, 25, 9.75, 160, 40, 34, "medium"),
     skins: [
-      ["Champions 2021", "ultra", "champions"],
-      ["Sentinels of Light", "exclusive"],
-      ["Crimsonbeast", "premium", "crimson-beast"],
+      ["Prime", "premium"],
+      ["Reaver", "premium"],
+      ["Elderflame", "ultra"],
+      ["Champions 2025", "exclusive"],
     ],
   }),
   weapon({
@@ -174,9 +221,10 @@ export const WEAPONS = [
     category: "sniper",
     stats: stats(950, 5, 1.5, 202, 101, 85, "medium"),
     skins: [
-      ["Artisan", "premium"],
-      ["Doodle Buds", "deluxe"],
-      ["Ruin", "premium", "ruination"],
+      ["Kuronami", "exclusive"],
+      ["Sovereign", "premium"],
+      ["Magepunk", "premium"],
+      ["Blackthorn", "exclusive"],
     ],
   }),
   weapon({
@@ -185,9 +233,10 @@ export const WEAPONS = [
     category: "sniper",
     stats: stats(2400, 2, 2.75, 238, 140, 119, "high"),
     skins: [
-      ["RGX 11z Pro", "exclusive", "rgx"],
-      ["Araxys", "ultra"],
-      ["EX.O", "premium", "exo"],
+      ["RGX 11z Pro", "exclusive"],
+      ["Araxys", "exclusive"],
+      ["Phaseguard", "ultra"],
+      ["Mystbloom", "exclusive"],
     ],
   }),
   weapon({
@@ -198,7 +247,8 @@ export const WEAPONS = [
     skins: [
       ["Elderflame", "ultra"],
       ["Ion", "premium"],
-      ["Araxys", "ultra"],
+      ["Reaver", "premium"],
+      ["SplashX", "exclusive"],
     ],
   }),
   weapon({
@@ -207,9 +257,10 @@ export const WEAPONS = [
     category: "machine-gun",
     stats: stats(1600, 50, 10, 72, 30, 25, "high"),
     skins: [
-      ["Hivemind", "exclusive"],
-      ["Nebula", "deluxe"],
-      ["Singularity", "premium"],
+      ["Singularity", "exclusive"],
+      ["Ion", "premium"],
+      ["Magepunk", "premium"],
+      ["Blackspyre", "exclusive"],
     ],
   }),
   weapon({
@@ -218,9 +269,10 @@ export const WEAPONS = [
     category: "machine-gun",
     stats: stats(3200, 100, 12, 95, 38, 32, "high"),
     skins: [
-      ["Prime//2.0", "premium", "prime"],
+      ["Prime//2.0", "premium"],
       ["Reaver", "premium"],
-      ["Sentinels of Light", "exclusive"],
+      ["Glitchpop", "exclusive"],
+      ["Evori Dreamwings", "ultra"],
     ],
   }),
   weapon({
@@ -229,8 +281,10 @@ export const WEAPONS = [
     category: "melee",
     stats: null,
     skins: [
-      ["Blade of Chaos", "ultra"],
-      ["Soulstrife Scythe", "exclusive"],
+      ["Reaver Karambit", "exclusive"],
+      ["Prime//2.0 Karambit", "exclusive"],
+      ["Kuronami no Yaiba", "exclusive"],
+      ["Champions 2025 Butterfly Knife", "exclusive"],
     ],
   }),
 ];

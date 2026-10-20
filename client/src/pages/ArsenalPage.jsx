@@ -1,7 +1,7 @@
 import { Suspense, useState } from "react";
 import { Link } from "react-router";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
-import { Check, Coins, Layers, ShoppingBag } from "lucide-react";
+import { Check, Coins, Layers, Play, ShoppingBag } from "lucide-react";
 import clsx from "clsx";
 import { useAuth } from "../context/AuthContext";
 import { useResource } from "../hooks/useResource";
@@ -12,6 +12,7 @@ import { Skeleton } from "../components/ui/Feedback";
 import { TierBadge } from "../components/ui/Badges";
 import { VPAmount } from "../components/ui/VPAmount";
 import { Button } from "../components/ui/Button";
+import { SkinShowcase } from "../components/SkinShowcase";
 
 export default function ArsenalPage() {
   useDocumentTitle("Arsenal");
@@ -148,12 +149,21 @@ function WeaponCard({ weapon, onOpen }) {
         loading="lazy"
         className="relative m-auto max-h-24 w-[85%] object-contain transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-rotate-3 invert-[0.85] dark:invert-0"
       />
-      <p className="relative flex items-center gap-1.5 font-mono text-[11px] tracking-[0.15em] text-muted uppercase">
-        <Layers className="size-3.5" /> {weapon.skins.length} {weapon.skins.length === 1 ? "skin" : "skins"}
+      <p className="relative flex items-center gap-4 font-mono text-[11px] tracking-[0.15em] text-muted uppercase">
+        <span className="flex items-center gap-1.5">
+          <Layers className="size-3.5" /> {weapon.skins.length} {weapon.skins.length === 1 ? "skin" : "skins"}
+        </span>
+        {animationCount(weapon) > 0 && (
+          <span className="flex items-center gap-1.5 text-brand">
+            <Play className="size-3 fill-current" /> {animationCount(weapon)} animations
+          </span>
+        )}
       </p>
     </button>
   );
 }
+
+const animationCount = (weapon) => weapon.skins.reduce((total, skin) => total + (skin.videos?.length ?? 0), 0);
 
 const MAX_DAMAGE = 255;
 
@@ -163,7 +173,7 @@ const BASE_RENDER = "invert-[0.85] dark:invert-0";
 function WeaponDetail({ weapon }) {
   const { user } = useAuth();
   const store = useResource("/store");
-  const [selectedId, setSelectedId] = useState("default");
+  const [selectedId, setSelectedId] = useState(weapon.skins[0]?.id ?? "default");
 
   const owned = new Set(user?.inventory.map((item) => item.itemId));
   const inStore = new Set(store.skins.map((skin) => skin.id));
@@ -172,28 +182,37 @@ function WeaponDetail({ weapon }) {
 
   return (
     <div>
-      <div className="relative grid min-h-72 place-items-center overflow-hidden bg-bg px-6 py-12 sm:min-h-80">
-        <div className="absolute inset-0 bg-grid" aria-hidden />
-        {selected && (
-          <div
-            className="absolute inset-0 opacity-25"
-            style={{ background: `radial-gradient(circle at 50% 60%, var(--color-tier-${selected.tier}), transparent 65%)` }}
-            aria-hidden
-          />
-        )}
-        <AnimatePresence mode="wait">
+      {selected ? (
+        <SkinShowcase
+          key={selected.id}
+          skin={selected}
+          stageClassName="aspect-video w-full"
+          imageClassName="max-h-[70%] w-[82%]"
+          tabsClassName="px-6 sm:px-10"
+          renderBackdrop={
+            <>
+              <div className="absolute inset-0 bg-grid" aria-hidden />
+              <div
+                className="absolute inset-0 opacity-25"
+                style={{ background: `radial-gradient(circle at 50% 60%, var(--color-tier-${selected.tier}), transparent 65%)` }}
+                aria-hidden
+              />
+            </>
+          }
+        />
+      ) : (
+        <div className="relative grid min-h-72 place-items-center overflow-hidden bg-bg px-6 py-12 sm:min-h-80">
+          <div className="absolute inset-0 bg-grid" aria-hidden />
           <motion.img
-            key={selectedId}
-            src={selected?.image ?? weapon.image}
-            alt={selected?.name ?? weapon.name}
-            className={clsx("relative max-h-56 w-[80%] max-w-2xl object-contain drop-shadow-2xl", !selected && BASE_RENDER)}
+            src={weapon.image}
+            alt={weapon.name}
+            className={clsx("relative max-h-72 w-[88%] max-w-3xl object-contain drop-shadow-2xl", BASE_RENDER)}
             initial={{ opacity: 0, x: 60, rotate: -4 }}
             animate={{ opacity: 1, x: 0, rotate: 0 }}
-            exit={{ opacity: 0, x: -60 }}
             transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           />
-        </AnimatePresence>
-      </div>
+        </div>
+      )}
 
       <div className="grid gap-10 p-6 sm:p-10 lg:grid-cols-[1fr_1.2fr]">
         <div>
@@ -260,7 +279,7 @@ function WeaponDetail({ weapon }) {
 
         <div>
           <p className="font-mono text-[10px] tracking-[0.2em] text-muted uppercase">Skins · {weapon.skins.length + 1}</p>
-          <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+          <ul className="mt-3 grid grid-cols-2 gap-2">
             {[{ id: "default", name: "Standard", image: weapon.image }, ...weapon.skins].map((skin) => {
               const active = skin.id === selectedId;
               return (
@@ -270,22 +289,42 @@ function WeaponDetail({ weapon }) {
                     onClick={() => setSelectedId(skin.id)}
                     aria-pressed={active}
                     className={clsx(
-                      "relative flex h-24 w-full flex-col justify-between overflow-hidden border bg-bg p-2 text-left transition",
+                      "relative flex h-32 w-full flex-col overflow-hidden border bg-bg p-2.5 text-left transition",
                       active ? "border-brand" : "border-line hover:border-line-strong",
                     )}
                   >
                     {skin.tier && (
                       <span className="absolute inset-x-0 top-0 h-0.5" style={{ background: `var(--color-tier-${skin.tier})` }} />
                     )}
-                    <img
-                      src={skin.image}
-                      alt=""
-                      loading="lazy"
-                      className={clsx("mx-auto max-h-12 w-[85%] object-contain", !skin.tier && BASE_RENDER)}
-                    />
-                    <span className="flex items-center justify-between gap-1 text-[11px] font-semibold">
+                    {skin.tier && (
+                      <span
+                        className="absolute inset-0 opacity-30"
+                        style={{ background: `radial-gradient(ellipse at 50% 45%, var(--color-tier-${skin.tier}), transparent 70%)` }}
+                        aria-hidden
+                      />
+                    )}
+                    <span className="relative flex min-h-0 flex-1 items-center justify-center">
+                      <img
+                        src={skin.image}
+                        alt=""
+                        loading="lazy"
+                        className={clsx(
+                          "max-h-full w-[94%] object-contain drop-shadow-[0_6px_10px_rgba(0,0,0,0.45)]",
+                          !skin.tier && BASE_RENDER,
+                        )}
+                      />
+                    </span>
+                    <span className="relative mt-1.5 flex items-center justify-between gap-1 text-xs font-semibold">
                       <span className="truncate">{skin.collection ?? skin.name}</span>
-                      {owned.has(skin.id) && <Check className="size-3.5 shrink-0 text-emerald-500" aria-label="Owned" />}
+                      <span className="flex shrink-0 items-center gap-1.5">
+                        {owned.has(skin.id) && <Check className="size-3.5 text-emerald-500" aria-label="Owned" />}
+                        {skin.videos?.length > 0 && (
+                          <span className="flex items-center gap-0.5 font-mono text-[10px] text-brand" title="In-game animations">
+                            <Play className="size-2.5 fill-current" />
+                            {skin.videos.length}
+                          </span>
+                        )}
+                      </span>
                     </span>
                   </button>
                 </li>

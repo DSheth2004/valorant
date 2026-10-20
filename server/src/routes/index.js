@@ -30,8 +30,10 @@ const authLimiter = rateLimit({
   message: { message: "Too many attempts. Please wait a few minutes and try again.", code: "RATE_LIMITED" },
 });
 
+// Browsers revalidate every time (a cheap 304 via ETag) so catalog changes show up
+// immediately; the CDN still caches between deploys, and each deploy purges it.
 const cacheStatic = (_req, res, next) => {
-  res.set("Cache-Control", "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400");
+  res.set("Cache-Control", "public, max-age=0, must-revalidate, s-maxage=3600, stale-while-revalidate=86400");
   next();
 };
 

@@ -1,4 +1,6 @@
-const card = (id, name, price) => ({ id: `card-${id}`, name, price, image: `/assets/cards/${id}.webp` });
+import { assetUrl } from "./assets.js";
+
+const card = (id, name, price) => ({ id: `card-${id}`, name, price, image: assetUrl(`cards/${id}.webp`) });
 
 export const PLAYER_CARDS = [
   card("at-the-seams", "At The Seams", 500),

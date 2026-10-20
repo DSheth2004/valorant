@@ -16,7 +16,8 @@
     "build": "npm run build -w client",
     "start": "npm start -w server",
     "test": "npm test --workspaces --if-present",
-    "lint": "npm run lint --workspaces --if-present"
+    "lint": "npm run lint --workspaces --if-present",
+    "sync:media": "node scripts/sync-skin-media.mjs"
   },
   "devDependencies": {
     "concurrently": "^10.0.6"

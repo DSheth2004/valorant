@@ -170,6 +170,147 @@
   }
 }
 
+/* ---- Crosshair cursor (see components/layout/Crosshair.jsx) ------------------------ */
+@property --gap {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 4px;
+}
+
+html.has-crosshair,
+html.has-crosshair * {
+  cursor: none !important;
+}
+
+html.has-crosshair :is(input:not([type="checkbox"], [type="radio"], [type="button"], [type="submit"]), textarea, [contenteditable="true"]) {
+  cursor: text !important;
+}
+
+.vh-crosshair {
+  --gap: 4px;
+  --len: 7px;
+  --thick: 2px;
+  --outline: rgb(15 25 35 / 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    --gap 0.18s cubic-bezier(0.2, 0.9, 0.3, 1.4),
+    opacity 0.15s ease;
+}
+
+.vh-crosshair[data-visible="true"] {
+  opacity: 1;
+}
+.vh-crosshair[data-state="text"] {
+  opacity: 0;
+}
+.vh-crosshair[data-state="target"] {
+  --gap: 9px;
+}
+.vh-crosshair[data-pressed="true"] {
+  --gap: 1px;
+}
+
+.vh-crosshair__line,
+.vh-crosshair__dot {
+  position: absolute;
+  background: var(--color-brand);
+  box-shadow: 0 0 0 1px var(--outline);
+}
+
+.vh-crosshair__line--top,
+.vh-crosshair__line--bottom {
+  left: calc(var(--thick) / -2);
+  width: var(--thick);
+  height: var(--len);
+}
+.vh-crosshair__line--top {
+  top: calc(-1 * (var(--gap) + var(--len)));
+}
+.vh-crosshair__line--bottom {
+  top: var(--gap);
+}
+
+.vh-crosshair__line--left,
+.vh-crosshair__line--right {
+  top: calc(var(--thick) / -2);
+  height: var(--thick);
+  width: var(--len);
+}
+.vh-crosshair__line--left {
+  left: calc(-1 * (var(--gap) + var(--len)));
+}
+.vh-crosshair__line--right {
+  left: var(--gap);
+}
+
+.vh-crosshair__dot {
+  top: -1px;
+  left: -1px;
+  width: 2px;
+  height: 2px;
+}
+
+/* Lock-on ring with corner brackets, shown over clickable elements. */
+.vh-crosshair__ring {
+  position: absolute;
+  top: -17px;
+  left: -17px;
+  width: 34px;
+  height: 34px;
+  --c: var(--color-brand);
+  background:
+    linear-gradient(var(--c) 0 0) top left / 9px 2px,
+    linear-gradient(var(--c) 0 0) top left / 2px 9px,
+    linear-gradient(var(--c) 0 0) top right / 9px 2px,
+    linear-gradient(var(--c) 0 0) top right / 2px 9px,
+    linear-gradient(var(--c) 0 0) bottom left / 9px 2px,
+    linear-gradient(var(--c) 0 0) bottom left / 2px 9px,
+    linear-gradient(var(--c) 0 0) bottom right / 9px 2px,
+    linear-gradient(var(--c) 0 0) bottom right / 2px 9px;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 0 1px rgb(15 25 35 / 0.9));
+  opacity: 0;
+  transform: scale(1.6) rotate(-45deg);
+  transition:
+    opacity 0.18s ease,
+    transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+.vh-crosshair[data-state="target"] .vh-crosshair__ring {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+.vh-crosshair[data-pressed="true"] .vh-crosshair__ring {
+  transform: scale(0.8);
+}
+
+/* Hit marker: a white ✕ that bursts outward and fades where the user clicked. */
+.vh-hitmarker {
+  position: fixed;
+  z-index: 9998;
+  pointer-events: none;
+  rotate: 45deg;
+  animation: vh-hit 0.38s ease-out forwards;
+}
+.vh-hitmarker i {
+  position: absolute;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgb(15 25 35 / 0.8);
+}
+.vh-hitmarker i:nth-child(1) { left: -1px; top: -16px; width: 2px; height: 8px; }
+.vh-hitmarker i:nth-child(2) { left: -1px; top: 8px; width: 2px; height: 8px; }
+.vh-hitmarker i:nth-child(3) { top: -1px; left: -16px; height: 2px; width: 8px; }
+.vh-hitmarker i:nth-child(4) { top: -1px; left: 8px; height: 2px; width: 8px; }
+
+@keyframes vh-hit {
+  from { scale: 0.6; opacity: 1; }
+  to { scale: 1.5; opacity: 0; }
+}
+
 /* Theme toggle: circular reveal via the View Transitions API. */
 ::view-transition-old(root),
 ::view-transition-new(root) {

@@ -1,3 +1,5 @@
+import { assetUrl } from "./assets.js";
+
 export const ROLES = [
   {
     id: "duelist",
@@ -26,15 +28,15 @@ const ability = (agentId, key, name, description) => ({
   slot: key === "x" ? "ultimate" : key === "e" ? "signature" : "basic",
   name,
   description,
-  icon: `/assets/abilities/${agentId}-${key}.webp`,
+  icon: assetUrl(`abilities/${agentId}-${key}.webp`),
 });
 
 const agent = ({ id, abilities, ...rest }) => ({
   id,
   ...rest,
-  portrait: `/assets/agents/${id}.webp`,
-  icon: `/assets/agents/${id}-icon.webp`,
-  background: `/assets/agents/${id}-bg.webp`,
+  portrait: assetUrl(`agents/${id}.webp`),
+  icon: assetUrl(`agents/${id}-icon.webp`),
+  background: assetUrl(`agents/${id}-bg.webp`),
   abilities: abilities.map(([key, name, description]) => ability(id, key, name, description)),
 });
 

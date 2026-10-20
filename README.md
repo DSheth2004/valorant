@@ -16,6 +16,7 @@ A full-stack VALORANT fan hub. Browse agents, maps and the arsenal, then create 
 - Valorant-inspired design system built on **Tailwind CSS v4** design tokens: angular clipped corners, skin-tier colours, and ability icons tinted with CSS masks so they adapt to the theme
 - Accessible by default: keyboard-friendly modals (focus trap, Escape to close, focus restore), ARIA tabs, a skip link and labelled controls
 - Fully responsive, with an animated mobile menu
+- **Skin showcases**: every skin has its official in-game videos (upgrade levels, VFX, reload animations, finishers), streamed on demand from Riot's CDN
 
 **Backend**
 - **Express 5 REST API** with a layered structure: routes → middleware → controllers → models/services
@@ -122,6 +123,7 @@ npm run dev
 | `npm run lint` | Lint the client |
 | `npm run build` | Production build of the client into `client/dist` |
 | `npm start` | Start the API without watch mode |
+| `npm run sync:media` | Refresh the in-game skin showcase video links (run after a game patch if videos stop loading) |
 
 ## Deploying to Vercel
 
@@ -150,7 +152,7 @@ vercel --prod
 
 ## Disclaimer
 
-Valorant Hub is a fan project for learning and portfolio purposes. It isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc. Game assets belong to Riot Games; renders were sourced via the community [valorant-api.com](https://valorant-api.com) and are stored locally as optimised WebP.
+Valorant Hub is a fan project for learning and portfolio purposes. It isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc. Game assets belong to Riot Games; renders were sourced via the community [valorant-api.com](https://valorant-api.com) and are stored locally as optimised WebP. Weapon and skin renders (512px at source) were upscaled 4× with [Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN).
 
 ## Author
 

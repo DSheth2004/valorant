@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Navbar } from "./Navbar";
 import { Footer } from "./Footer";
 import { ScrollProgress } from "./Effects";
+import { Crosshair } from "./Crosshair";
 import { ErrorBoundary, PageLoader } from "../ui/Feedback";
 
 /**
@@ -28,6 +29,7 @@ export function Layout() {
         Skip to content
       </a>
       <ScrollProgress />
+      <Crosshair />
       <Navbar />
 
       <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo({ top: 0, behavior: "instant" })}>

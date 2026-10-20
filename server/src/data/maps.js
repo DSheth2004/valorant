@@ -1,4 +1,6 @@
-const map = ({ id, ...rest }) => ({ id, ...rest, image: `/assets/maps/${id}.webp` });
+import { assetUrl } from "./assets.js";
+
+const map = ({ id, ...rest }) => ({ id, ...rest, image: assetUrl(`maps/${id}.webp`) });
 
 export const MAPS = [
   map({

@@ -1,7 +1,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { AnimatePresence, motion } from "motion/react";
-import { Check, CircleCheck, Lock, Timer, Wallet } from "lucide-react";
+import { Check, CircleCheck, Lock, Play, Timer, Wallet } from "lucide-react";
 import clsx from "clsx";
 import { useAuth } from "../context/AuthContext";
 import { useToast } from "../context/ToastContext";
@@ -16,6 +16,7 @@ import { Skeleton } from "../components/ui/Feedback";
 import { TierBadge } from "../components/ui/Badges";
 import { VPAmount } from "../components/ui/VPAmount";
 import { DailyRewardButton } from "../components/DailyReward";
+import { SkinShowcase } from "../components/SkinShowcase";
 
 export default function StorePage() {
   useDocumentTitle("Store");
@@ -76,9 +77,9 @@ function WalletPanel() {
 
 function StoreSkeleton() {
   return (
-    <div className="mt-14 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="mt-14 grid gap-4 md:grid-cols-2">
       {Array.from({ length: 4 }, (_, i) => (
-        <Skeleton key={i} className="h-80" />
+        <Skeleton key={i} className="h-80 md:h-96" />
       ))}
     </div>
   );
@@ -108,7 +109,7 @@ function Storefront({ onRotate }) {
         </p>
       </div>
 
-      <ul className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <ul className="mt-6 grid gap-4 md:grid-cols-2">
         {store.skins.map((skin, index) => (
           <motion.li
             key={skin.id}
@@ -136,7 +137,7 @@ function Storefront({ onRotate }) {
         ))}
       </ul>
 
-      <Modal open={Boolean(selected)} onClose={() => setSelected(null)} title={selected?.name} size="sm">
+      <Modal open={Boolean(selected)} onClose={() => setSelected(null)} title={selected?.name} size={selected?.videos?.length ? "md" : "sm"}>
         {selected && <PurchaseDialog item={selected} onDone={() => setSelected(null)} />}
       </Modal>
     </>
@@ -156,7 +157,7 @@ function OfferCard({ item, variant = "skin", onSelect }) {
       transition={{ type: "spring", stiffness: 400, damping: 25 }}
       className={clsx(
         "group relative flex w-full flex-col overflow-hidden border border-line bg-surface text-left clip-corner",
-        variant === "skin" ? "h-80" : "h-[26rem]",
+        variant === "skin" ? "h-80 md:h-96" : "h-[26rem]",
       )}
     >
       <div
@@ -173,13 +174,22 @@ function OfferCard({ item, variant = "skin", onSelect }) {
           loading="lazy"
           className={clsx(
             "object-contain transition-transform duration-500 ease-out group-hover:scale-110",
-            variant === "skin" ? "max-h-28 w-[90%] group-hover:-rotate-6" : "max-h-72",
+            variant === "skin"
+              ? "max-h-48 w-[92%] drop-shadow-[0_18px_22px_rgba(0,0,0,0.35)] group-hover:-rotate-3"
+              : "max-h-72",
           )}
         />
       </div>
 
       <div className="relative border-t border-line bg-bg/70 p-4 backdrop-blur">
-        {item.tier && <TierBadge tier={item.tier} />}
+        <div className="flex items-center justify-between gap-2">
+          {item.tier && <TierBadge tier={item.tier} />}
+          {item.videos?.length > 0 && (
+            <span className="flex items-center gap-1 font-mono text-[10px] tracking-[0.15em] text-muted uppercase">
+              <Play className="size-3 fill-current" /> {item.videos.length} animations
+            </span>
+          )}
+        </div>
         <p className="mt-1 truncate font-semibold">{item.name}</p>
         <div className="mt-2 flex items-center justify-between">
           <VPAmount value={item.price} />
@@ -252,9 +262,18 @@ function PurchaseDialog({ item, onDone }) {
         ) : (
           <motion.div key="confirm" exit={{ opacity: 0, scale: 0.95 }}>
             <p className="font-mono text-[11px] tracking-[0.2em] text-brand uppercase">Confirm purchase</p>
-            <div className="my-6 grid h-48 place-items-center bg-bg">
-              <img src={item.image} alt={item.name} className="max-h-40 w-4/5 object-contain" />
-            </div>
+            {item.videos?.length ? (
+              <SkinShowcase
+                skin={item}
+                className="my-6"
+                stageClassName="aspect-video w-full"
+                imageClassName="max-h-[70%] w-[85%]"
+              />
+            ) : (
+              <div className="my-6 grid h-48 place-items-center bg-bg">
+                <img src={item.image} alt={item.name} className="max-h-40 w-4/5 object-contain" />
+              </div>
+            )}
             {item.tier && <TierBadge tier={item.tier} />}
             <h3 className="mt-1 font-display text-3xl tracking-wide uppercase">{item.name}</h3>
 
